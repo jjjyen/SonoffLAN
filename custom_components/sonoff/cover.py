@@ -160,3 +160,37 @@ class XCover91(XEntity, CoverEntity):
 
     async def async_close_cover(self, **kwargs):
         await self.ewelink.send(self.device, {self.param: 3})
+
+#jjjyen
+class XCover67(XCover):
+    params = {"per", "op"}
+
+    def set_state(self, params: dict):
+        if "per" in params:
+            # 0 - closed, 100 - opened
+            self._attr_current_cover_position = params["per"]
+            self._attr_is_closed = self._attr_current_cover_position == 0
+
+        if "op" in params:
+            if params["op"] == 2:  # stop
+                self._attr_is_opening = False
+                self._attr_is_closing = False
+            elif params["op"] == 1:
+                self._attr_is_opening = True
+                self._attr_is_closing = False
+            elif params["op"] == 3:
+                self._attr_is_opening = False
+                self._attr_is_closing = True
+
+    async def async_stop_cover(self, **kwargs):
+        await self.ewelink.send(self.device, {"op": 2})
+
+    async def async_open_cover(self, **kwargs):
+        await self.ewelink.send(self.device, {"op": 1})
+
+    async def async_close_cover(self, **kwargs):
+        await self.ewelink.send(self.device, {"op": 3})
+
+    async def async_set_cover_position(self, position: int, **kwargs):
+        await self.ewelink.send(self.device, {"per": position})
+
