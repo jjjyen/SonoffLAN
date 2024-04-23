@@ -21,7 +21,7 @@ from .ewelink import XDevice
 from ..binary_sensor import XBinarySensor, XWiFiDoor, XZigbeeMotion
 from ..climate import XClimateNS, XClimateTH, XThermostat
 from ..core.entity import XEntity
-from ..cover import XCover, XCoverDualR3, XZigbeeCover, XCover91
+from ..cover import XCover, XCoverDualR3, XZigbeeCover, XCover91, XCover67
 from ..fan import XDiffuserFan, XFan, XToggleFan, XFanDualR3
 from ..light import (
     XDiffuserLight,
@@ -205,6 +205,7 @@ DEVICES = {
     57: [XLight57, RSSI],  # Mosquito Killer Lamp
     59: [XLightL1, RSSI],  # Sonoff LED (only cloud)
     66: [RSSI, LED, spec(XBinarySensor, param="zled", enabled=False)],  # ZigBee Bridge
+    67:[XCover67],
     77: SPEC_1CH,  # Sonoff Micro
     78: SPEC_1CH,  # https://github.com/AlexxIT/SonoffLAN/issues/615
     81: SPEC_1CH,
